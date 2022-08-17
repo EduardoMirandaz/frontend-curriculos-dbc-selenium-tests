@@ -33,11 +33,11 @@ public class Browser {
 
     }
 
-    @After
-    public void finalizarBrowser(){
-        driver.manage().timeouts().implicitlyWait(2000, TimeUnit.MILLISECONDS); // Definir um tempo para iniciar
-        driver.quit(); // fecha o browser.
-    }
+//    @After
+//    public void finalizarBrowser(){
+//        driver.manage().timeouts().implicitlyWait(2000, TimeUnit.MILLISECONDS); // Definir um tempo para iniciar
+//        driver.quit(); // fecha o browser.
+//    }
 
 
 }

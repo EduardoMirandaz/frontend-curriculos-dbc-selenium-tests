@@ -2,22 +2,31 @@ package steps.Cadastro;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.json.Json;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.HomePage;
 import pages.LoginPage;
 import pages.RegisterPage;
+import pages.Toasts;
+import steps.Login.LogInValidoSteps;
 import util.Browser;
 import util.Geradores;
 import util.JsonManipulation;
 
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
+import static steps.Login.LogInValidoSteps.logar;
 import static util.Elements.waitElement;
 
 public class CadastroValidoSteps extends Browser {
 
     RegisterPage registerPage = new RegisterPage();
     LoginPage loginPage = new LoginPage();
-
     Geradores geradores = new Geradores();
     @Test
     public void cadastrarUsuarioValido(){
@@ -25,10 +34,18 @@ public class CadastroValidoSteps extends Browser {
         cadastrar();
 
         // Validação
+        /*********************************************************
+         Para validar se o registro foi efetuado de maneira idonea
+         faço login e verifico se o botao de deslogar está disponível.
+         */
 
-        String expected = loginPage.retornoLogin();
-        Assert.assertEquals(expected, "Entre com sua conta");
+
+        logar();
+
+        Assert.assertEquals(loginPage.recuperarToastRegistro(), "deslogar");
+
     }
+
 
     public void cadastrar(){
         // Clicar no botao para registrar

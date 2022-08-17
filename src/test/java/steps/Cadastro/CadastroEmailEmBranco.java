@@ -14,24 +14,24 @@ import java.util.Map;
 
 import static util.Elements.waitElement;
 
-public class CadastroEmailESenhaInvalidosSteps extends Browser {
+public class CadastroEmailEmBranco extends Browser {
 
     RegisterPage registerPage = new RegisterPage();
     LoginPage loginPage = new LoginPage();
 
     Geradores geradores = new Geradores();
     @Test
-    public void cadastroEmailESenhaInvalidosSteps(){
+    public void cadastroEmailEmBranco(){
 
-        cadastrar();
+        cadastrarEmailEmBranco();
 
         // Validação
 
-        String expected = loginPage.retornoLogin();
-        Assert.assertEquals(expected, "Entre com sua conta");
+        String expected = registerPage.recuperarMensagemEmailInvalido();
+        Assert.assertEquals(expected, "OBRIGATÓRIO");
     }
 
-    public void cadastrar(){
+    public void cadastrarEmailEmBranco(){
         // Clicar no botao para registrar
         loginPage.clicarBtnRegistrar();
 
@@ -39,17 +39,14 @@ public class CadastroEmailESenhaInvalidosSteps extends Browser {
         waitElement(registerPage.msgRegistreUmaConta);
 
         // preencher formulário de cadastro
-        String email = registerPage.preencherEmail(geradores.gerarLoginRandomico(TipoDeInvalidacao.SEMPONTO));
-        String password = registerPage.preencherSenha(geradores.gerarSenhaRandomica(TipoDeInvalidacao.NULO));
+        String email = registerPage.preencherEmail(geradores.gerarLoginRandomico(TipoDeInvalidacao.EMBRANCO));
+        String password = registerPage.preencherSenha();
         registerPage.preencherConfirmarSenha(password);
 
         Map<String, String> login = new HashMap<>();
         login.put("email", email);
         login.put("password", password);
         JsonManipulation.criarJsonCadastro(login);
-
-//         Clicar no botao submit
-        registerPage.clicarBtnRegistrarSe();
 
     }
 
