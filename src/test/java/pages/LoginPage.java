@@ -14,6 +14,7 @@ public class LoginPage extends BaseTest {
     public static final By fieldPassword = By.cssSelector("#senha");
     public static final By msgEntreComSuaConta = By.xpath("//*[@id=\"root\"]/div[1]/div/div[2]/div/h2");
     public static final By msgErroEmail = By.xpath("//*[@id=\"root\"]/div[1]/div/div[2]/div/form/div[1]/span");
+    public static final By msgErroSenha = By.xpath("//*[@id=\"root\"]/div[1]/div/div[2]/div/form/div[2]/span");
 
     public static final By btnLogin = By.xpath("//*[@id=\"root\"]/div[1]/div/div[2]/div/form/button");
 
@@ -26,6 +27,9 @@ public class LoginPage extends BaseTest {
 
     public String recuperarMsgErroEmail(){
         return BaseTest.getText(msgErroEmail);
+    }
+    public String recuperarMsgErroSenha(){
+        return BaseTest.getText(msgErroSenha);
     }
     public void preencherEmail(String email){
         BaseTest.sendKeys(fieldEmail, email);

@@ -7,26 +7,27 @@ import steps.Cadastro.CadastroValidoSteps;
 import util.Browser;
 import util.JsonManipulation;
 
-public class LogInValidoSteps extends Browser {
+public class LogInSenhaIncorretaSteps extends Browser {
+
 
     static LoginPage loginPage = new LoginPage();
     CadastroValidoSteps cadastroValidoSteps = new CadastroValidoSteps();
     @Test
-    public void logarUsuarioValido(){
+    public void logInSenhaIncorretaSteps(){
         cadastroValidoSteps.cadastrar();
 
         logar();
 
         // Validação
 
-        Assert.assertEquals(loginPage.recuperarToastRegistro(), "deslogar");
+        Assert.assertEquals(loginPage.retornoLogin(), "Entre com sua conta");
 
 
     }
 
     public static void logar() {
         loginPage.preencherEmail(JsonManipulation.recuperarCadastro().get("email"));
-        loginPage.preencherPassword(JsonManipulation.recuperarCadastro().get("password"));
+        loginPage.preencherPassword(JsonManipulation.recuperarCadastro().get("password")+"@");
         loginPage.clicarBtnLogin();
     }
 

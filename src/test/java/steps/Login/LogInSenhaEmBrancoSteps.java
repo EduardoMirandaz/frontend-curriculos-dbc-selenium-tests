@@ -5,28 +5,34 @@ import org.junit.Test;
 import pages.LoginPage;
 import steps.Cadastro.CadastroValidoSteps;
 import util.Browser;
+import util.Enums.TipoDeInvalidacao;
+import util.Geradores;
 import util.JsonManipulation;
 
-public class LogInValidoSteps extends Browser {
+public class LogInSenhaEmBrancoSteps extends Browser {
+
 
     static LoginPage loginPage = new LoginPage();
+    static Geradores geradores = new Geradores();
+
     CadastroValidoSteps cadastroValidoSteps = new CadastroValidoSteps();
     @Test
-    public void logarUsuarioValido(){
+    public void logInSenhaEmBrancoSteps(){
         cadastroValidoSteps.cadastrar();
 
         logar();
 
         // Validação
 
-        Assert.assertEquals(loginPage.recuperarToastRegistro(), "deslogar");
+        Assert.assertEquals(loginPage.recuperarMsgErroSenha(), "OBRIGATÓRIO");
 
 
     }
 
     public static void logar() {
         loginPage.preencherEmail(JsonManipulation.recuperarCadastro().get("email"));
-        loginPage.preencherPassword(JsonManipulation.recuperarCadastro().get("password"));
+        loginPage.preencherPassword(geradores.gerarSenhaRandomica(TipoDeInvalidacao.EMBRANCO));
+
         loginPage.clicarBtnLogin();
     }
 
