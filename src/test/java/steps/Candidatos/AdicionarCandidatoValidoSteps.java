@@ -1,12 +1,10 @@
 package steps.Candidatos;
 
 import org.json.simple.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
-import org.openqa.selenium.Keys;
 import pages.*;
-import pages.CandidatosPages.CandidatoPopUp;
-import pages.CandidatosPages.CandidatosPage;
-import pages.CandidatosPages.RegistroCandidatoPage1;
+import pages.CandidatosPages.*;
 import pages.UsuarioPages.LoginPage;
 import steps.Cadastro.CadastroValidoSteps;
 import util.BaseTest;
@@ -20,18 +18,20 @@ import static util.Paths.curriculoValidoPath;
 public class AdicionarCandidatoValidoSteps extends Browser {
 
     static LoginPage loginPage = new LoginPage();
-    DashboardPage dashboardPage = new DashboardPage();
+    static DashboardPage dashboardPage = new DashboardPage();
     CadastroValidoSteps cadastroValidoSteps = new CadastroValidoSteps();
     CandidatoPopUp candidatoPopUp = new CandidatoPopUp();
-    CandidatosPage candidatosPage = new CandidatosPage();
-    RegistroCandidatoPage1 registroCandidatoPage1 = new RegistroCandidatoPage1();
+    static CandidatosPage candidatosPage = new CandidatosPage();
+    static RegistroDadosPessoaisCandidatoPage registroDadosPessoaisCandidatoPage = new RegistroDadosPessoaisCandidatoPage();
+    static RegistroEnderecoCandidatoPage registroEnderecoCandidatoPage = new RegistroEnderecoCandidatoPage();
+    static RegistroEscolaridadeCandidatoPage registroEscolaridadeCandidatoPage = new RegistroEscolaridadeCandidatoPage();
+    static RegistroExperienciasCandidatoPage registroExperienciasCandidatoPage = new RegistroExperienciasCandidatoPage();
     @Test
     public void adicionarCandidatoValidoSteps() {
 
         cadastrarELogar();
 
         String nomeCandidatoCriado = adicionarCandidatoValido();
-
 
         /****
          *  Para validar que um candidato foi de fato vinculado, verifico se no botao
@@ -41,40 +41,41 @@ public class AdicionarCandidatoValidoSteps extends Browser {
         BaseTest.waitSeconds(5);
 
 
-//        String mensagemBotaoVinculado =
-//                BaseTest.retornarMensagemBotaoDoCandidatoDeAcordoComOIndex(indexPessoaVinculada);
-
-
-//        Assert.assertEquals(mensagemBotaoVinculado, "Desvincular");
+        Assert.assertTrue(candidatosPage.buscarCandidatoPorNome(nomeCandidatoCriado));
 
 
     }
 
-    private String adicionarCandidatoValido() {
+    static String adicionarCandidatoValido() {
         dashboardPage.clicarBtnCandidatos();
         candidatosPage.clicarBtnAdicionar();
 
         JSONObject candidatoCriado = JsonManipulation.criarJsonCandidato();
-        ArrayList<String> keys = registroCandidatoPage1.recuperarAtributosPrimeiraPagina(candidatoCriado);
-        registroCandidatoPage1.popularCamposEscritos(keys);
-        registroCandidatoPage1.adicionarArquivo(curriculoValidoPath);
+        ArrayList<String> dadosPessoais = registroDadosPessoaisCandidatoPage.recuperarAtributosPrimeiraPagina(candidatoCriado);
+        registroDadosPessoaisCandidatoPage.popularCamposEscritos(dadosPessoais);
+        registroDadosPessoaisCandidatoPage.adicionarArquivo(curriculoValidoPath);
+        registroDadosPessoaisCandidatoPage.clicarBotaoProximo();
+
+        ArrayList<String> endereco = registroEnderecoCandidatoPage.recuperarAtributosEndereco(candidatoCriado);
+        registroEnderecoCandidatoPage.popularCamposEscritos(endereco);
+        registroEnderecoCandidatoPage.clicarBotaoProximo();
+
+        ArrayList<String> escolaridades = registroEscolaridadeCandidatoPage.recuperarAtributosEscolaridade(candidatoCriado);
+        registroEscolaridadeCandidatoPage.preencherNivel();
+        registroEscolaridadeCandidatoPage.popularCamposEscritos(escolaridades);
+        registroEscolaridadeCandidatoPage.clicarBotaoProximo();
+
+        ArrayList<String> experiencias = registroExperienciasCandidatoPage.recuperarAtributosExperiencias(candidatoCriado);
+        registroExperienciasCandidatoPage.popularCamposEscritos(experiencias);
+        registroExperienciasCandidatoPage.clicarBotaoProximo();
 
 
-        return "";
+        return candidatoCriado.get("nome").toString();
     }
 
-
-    private Integer vincularCandidatoValido() {
-
-        dashboardPage.clicarBtnVincularCandidato();
-        return candidatoPopUp.clicarBtnVincular();
-
-
-    }
 
     private void cadastrarELogar() {
         cadastroValidoSteps.cadastrar();
-
         logar();
     }
 

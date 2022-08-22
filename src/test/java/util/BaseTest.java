@@ -6,12 +6,12 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.interactions.Actions;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
 import static pages.CandidatosPages.CandidatoPopUp.*;
-import static util.Paths.curriculoValidoPath;
+import static pages.CandidatosPages.CandidatoPopUp.pos;
+import static pages.CandidatosPages.CandidatosPage.*;
 
 public class BaseTest extends Elements{
 
@@ -131,7 +131,54 @@ public class BaseTest extends Elements{
         return BaseTest.getText(By.cssSelector(strBtnVincularDesvincularInicio + indexPessoaVinculada + strBtnVincularDesvincularFinal));
     }
 
+    public static void clicarBotaoProximo(By by) {
+        element(by).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER);
+    }
 
+    public static void clicarBotaoProximoEscolaridade(By by) {
+        element(by). sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER);
+    }
+
+    public static void preencherNivel(By nivel) {
+        element(nivel).sendKeys(Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.TAB);
+    }
+
+    public static void sendKeysPage3(By by, ArrayList<String> keys) {
+        waitElement(by);
+        element(by).sendKeys(keys.get(0));
+        element(by).sendKeys(Keys.TAB, keys.get(1));
+        element(by).sendKeys(Keys.TAB, Keys.TAB, keys.get(2));
+        element(by).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, keys.get(3)+"1");
+        waitSeconds(2);
+    }
+
+    public static void sendKeysPage4(By by, ArrayList<String> keys) {
+        waitElement(by);
+        element(by).sendKeys(keys.get(0));
+        element(by).sendKeys(Keys.TAB, keys.get(1));
+        element(by).sendKeys(Keys.TAB, Keys.TAB, keys.get(2));
+        element(by).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, keys.get(3)+"1");
+        element(by).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, keys.get(4));
+        waitSeconds(2);
+    }
+
+    public static int buscarCandidatoPorNome(String nomeCandidatoCriado) {
+        int pos = 2;
+        while (! element(By.cssSelector(inicioMapeamentoCandidato + pos + finalMapeamentoCandidato)).getText().equals(nomeCandidatoCriado)) {
+            pos++;
+            if(pos == 12){
+                pos--;
+                break;
+            }
+        }
+        if(element(By.cssSelector(inicioMapeamentoCandidato + pos + finalMapeamentoCandidato)).getText().equals(nomeCandidatoCriado)){
+            return pos;
+        }
+        else{
+            BaseTest.click(btnProximaPagina);
+            return buscarCandidatoPorNome(nomeCandidatoCriado);
+        }
+    }
     public String gerarRandomico(Integer tamanho){
         UUID uuid = UUID.randomUUID();
         String myRandom = uuid.toString();

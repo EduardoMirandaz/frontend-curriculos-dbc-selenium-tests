@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 
 
 
-public class RegistroCandidatoPage1 {
+public class RegistroDadosPessoaisCandidatoPage {
 
     public final By nome = By.cssSelector("#nome");
     public final By arquivo = By.cssSelector("#personalFile");
@@ -23,7 +23,6 @@ public class RegistroCandidatoPage1 {
     public void adicionarArquivo(String path){
         BaseTest.sendKeys(arquivo, path);
     }
-
 
     public ArrayList<String> recuperarAtributosPrimeiraPagina(JSONObject candidatoCriado) {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -42,5 +41,7 @@ public class RegistroCandidatoPage1 {
     }
 
 
-
+    public void clicarBotaoProximo() {
+        BaseTest.clicarBotaoProximo(nome);
+    }
 }
