@@ -3,11 +3,14 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONObject;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import util.BaseTest;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static util.Elements.element;
 
 
     public class RegistroExperienciasCandidatoPage {
@@ -21,6 +24,10 @@ import java.util.stream.Stream;
 
         public void clicarBotaoProximo() {
             BaseTest.clicarBotaoProximo(cargo);
+        }
+
+        public void clicarBotaoProximoPosEdicao() {
+            element(instituicao).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB,Keys.TAB,Keys.TAB,Keys.TAB, Keys.ENTER);
         }
 
         public ArrayList<String> recuperarAtributosExperiencias(JSONObject candidatoCriado) {

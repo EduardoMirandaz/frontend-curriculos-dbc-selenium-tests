@@ -92,7 +92,7 @@ public class BaseTest extends Elements{
 
     public static void sendKeysPage1 (By by, ArrayList<String> keys){
         waitElement(by);
-        element(by).sendKeys(keys.get(0));
+        element(by).sendKeys(Keys.chord(Keys.SHIFT, Keys.ARROW_UP), keys.get(0));
         element(by).sendKeys(Keys.TAB, keys.get(1));
         element(by).sendKeys(Keys.TAB, Keys.TAB, keys.get(2));
         element(by).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, keys.get(3)+"1");
@@ -100,6 +100,13 @@ public class BaseTest extends Elements{
         element(by).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER, Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ENTER);
         waitSeconds(2);
 
+    }
+
+    public static void sendKeysPage1Edicao(By by, ArrayList<String> keys){
+        waitElement(by);
+        element(by).sendKeys(Keys.chord(Keys.SHIFT, Keys.ARROW_UP), keys.get(0));
+        element(by).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER, Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ENTER);
+        waitSeconds(2);
     }
 
     private static void pressTab(By by, Integer i) {
@@ -114,15 +121,6 @@ public class BaseTest extends Elements{
         builder.moveToElement(driver.findElement(by)).perform();
     }
 
-    public static Integer contarVagasComCandidatosVinculados(Integer pos) {
-        if(element(By.cssSelector(strBtnVincularDesvincularInicio + pos + strBtnVincularDesvincularFinal)).getText().equals("Vincular")){
-            return pos-2;
-        }
-        else{
-            return contarVagasComCandidatosVinculados(pos+1);
-        }
-    }
-
     public static void clicarBotaoVincular(Integer indexPessoaQuePodeSerVinculada) {
         click(By.cssSelector(strBtnVincularDesvincularInicio + indexPessoaQuePodeSerVinculada + strBtnVincularDesvincularFinal));
     }
@@ -135,9 +133,6 @@ public class BaseTest extends Elements{
         element(by).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER);
     }
 
-    public static void clicarBotaoProximoEscolaridade(By by) {
-        element(by). sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER);
-    }
 
     public static void preencherNivel(By nivel) {
         element(nivel).sendKeys(Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.TAB);
@@ -163,22 +158,31 @@ public class BaseTest extends Elements{
     }
 
     public static int buscarCandidatoPorNome(String nomeCandidatoCriado) {
-        int pos = 2;
-        while (! element(By.cssSelector(inicioMapeamentoCandidato + pos + finalMapeamentoCandidato)).getText().equals(nomeCandidatoCriado)) {
-            pos++;
-            if(pos == 12){
-                pos--;
-                break;
+        try{
+            int pos = 2;
+            while (! nomeCandidatoCriado.contains(element(By.cssSelector(inicioMapeamentoCandidato + pos + finalMapeamentoCandidato)).getText().replace("...", ""))  ) {
+                pos++;
+                if (pos == 12) {
+                    pos--;
+                    break;
+                }
             }
+            if (nomeCandidatoCriado.contains(element(By.cssSelector(inicioMapeamentoCandidato + pos + finalMapeamentoCandidato)).getText().replace("...", ""))) {
+                return pos;
+            } else {
+                BaseTest.click(btnProximaPagina);
+                return buscarCandidatoPorNome(nomeCandidatoCriado);
+            }
+        }catch (NoSuchElementException ns){
+            ns.printStackTrace();
         }
-        if(element(By.cssSelector(inicioMapeamentoCandidato + pos + finalMapeamentoCandidato)).getText().equals(nomeCandidatoCriado)){
-            return pos;
-        }
-        else{
-            BaseTest.click(btnProximaPagina);
-            return buscarCandidatoPorNome(nomeCandidatoCriado);
-        }
+        return 0;
     }
+
+    public static void clicarBotaoProximoPosEdicao(By by) {
+        element(by).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER);
+    }
+
     public String gerarRandomico(Integer tamanho){
         UUID uuid = UUID.randomUUID();
         String myRandom = uuid.toString();

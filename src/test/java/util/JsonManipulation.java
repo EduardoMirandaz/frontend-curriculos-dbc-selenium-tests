@@ -180,6 +180,4 @@ public class JsonManipulation extends Browser{
         return objectMapper.convertValue(parse, JSONObject.class);
     }
 
-
-
 }

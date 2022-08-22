@@ -12,16 +12,16 @@ import java.util.Map;
 // Mapeamentos
 
 public class RegisterPage extends BaseTest {
-
-    private static final By btnRegistrarSe = By.cssSelector("#root > div:nth-child(1) > div > div.sc-jIZahH.gUYqHr > div > form > button");
+    private static final By btnRegistrarSe = By.id("RegisterForm");
     private final By fieldEmail = By.cssSelector("#email");
     private final By fieldSenha = By.cssSelector("#senha");
     private final By fieldConfirmarSenha = By.cssSelector("#confirmaSenha");
-    public final By msgRegistreUmaConta = By.cssSelector("#root > div:nth-child(1) > div > div.sc-jIZahH.gUYqHr > div > h2");
+    public final By msgRegistreUmaConta = By.cssSelector("#root > div:nth-child(1) > div > div.sc-himrzO.cTNomg > div > h2");
 
     public final By msgEmailInvalido = By.cssSelector("#root > div:nth-child(1) > div > div.sc-jIZahH.gUYqHr > div > form > div:nth-child(1) > span");
     public final By msgSenhaInvalida = By.cssSelector("#root > div:nth-child(1) > div > div.sc-jIZahH.gUYqHr > div > form > div:nth-child(2) > span");
     public final By msgConfirmarSenhaInvalida = By.cssSelector("#root > div:nth-child(1) > div > div.sc-jIZahH.gUYqHr > div > form > div:nth-child(3) > span");
+
     // CLICKS
     public void clicarBtnRegistrarSe(){
         BaseTest.click(btnRegistrarSe);

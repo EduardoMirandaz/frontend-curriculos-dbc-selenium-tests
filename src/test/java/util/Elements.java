@@ -4,12 +4,19 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.util.NoSuchElementException;
+
 public class Elements extends Browser{
 
 
     // método para pegar um elemento
-    protected static WebElement element (By modoDeBusca){
-        return driver.findElement(modoDeBusca);
+    public static WebElement element(By modoDeBusca){
+        try {
+            return driver.findElement(modoDeBusca);
+        }catch (NoSuchElementException ns){
+            ns.printStackTrace();
+        }
+        return null;
     }
 
     // método para esperar um elemento

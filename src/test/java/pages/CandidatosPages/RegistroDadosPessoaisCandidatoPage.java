@@ -20,6 +20,10 @@ public class RegistroDadosPessoaisCandidatoPage {
         BaseTest.sendKeysPage1(nome, keys);
     }
 
+    public void popularCamposEscritosEdicaoNome(ArrayList<String> keys) {
+        BaseTest.sendKeysPage1Edicao(nome, keys);
+    }
+
     public void adicionarArquivo(String path){
         BaseTest.sendKeys(arquivo, path);
     }
@@ -35,6 +39,13 @@ public class RegistroDadosPessoaisCandidatoPage {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    public ArrayList<String> recuperarAtributosPrimeiraPaginaParaEdicao(JSONObject candidatoCriado) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return Stream.of(candidatoCriado.get("nome"))
+                .map(e -> objectMapper.convertValue(e, String.class))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
     private Object recuperarData(Object dataNascimento) {
         String[] dataList = dataNascimento.toString().split("-");
         return dataList[2] + dataList[1] +dataList[0];
@@ -43,5 +54,9 @@ public class RegistroDadosPessoaisCandidatoPage {
 
     public void clicarBotaoProximo() {
         BaseTest.clicarBotaoProximo(nome);
+    }
+
+    public void clicarBotaoProximoPosEdicao() {
+        BaseTest.clicarBotaoProximoPosEdicao(nome);
     }
 }

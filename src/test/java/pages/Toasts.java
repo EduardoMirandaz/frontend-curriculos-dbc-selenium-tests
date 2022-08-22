@@ -15,6 +15,8 @@ public class Toasts extends BaseTest {
     private static final By toastRegistradoComSucesso =
             By.cssSelector("#\\32 a23s1g > div.Toastify__toast-body > div:nth-child(2)");
     private final By toastCandidatoVinculadoComSucesso = By.cssSelector("#bsbk0sh");
+
+    private final By toastCandidatoDeletadoComSucesso = By.cssSelector("#kcf6hh8 > div.Toastify__toast-body");
     public String retornoRegistrar(){
         return BaseTest.getText(toastRegistradoComSucesso);
     }
@@ -22,5 +24,10 @@ public class Toasts extends BaseTest {
     public String recuperarMensagemCandidatoVinculadoComSucesso(){
         return BaseTest.getMsgFromToast(toastCandidatoVinculadoComSucesso);
     }
+
+    public String recuperartoastCandidatoDeletadoComSucesso(){
+        return BaseTest.getMsgFromToast(toastCandidatoDeletadoComSucesso);
+    }
+
 
 }

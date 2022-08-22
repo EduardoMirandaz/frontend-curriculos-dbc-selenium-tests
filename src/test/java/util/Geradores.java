@@ -97,13 +97,16 @@ public class Geradores {
     public static String gerarCEP() {
 
         Scanner scanner = null;
+        File file = new File(cepsValidosPath);
         try {
-            scanner = new Scanner( new File(cepsValidosPath));
+
+            scanner = new Scanner(file);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
         String cep = "";
-        for(int i = 0; i < new Random().nextInt(20000); i++){
+        Integer linhasArquivo = Integer.parseInt(String.valueOf(file.length()));
+        for(int i = 0; i < new Random().nextInt(linhasArquivo); i++){
             cep = scanner.nextLine();
         }
         return cep;

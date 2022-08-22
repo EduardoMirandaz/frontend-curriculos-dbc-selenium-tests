@@ -5,7 +5,6 @@ import org.junit.Test;
 import pages.UsuarioPages.LoginPage;
 import pages.UsuarioPages.RegisterPage;
 import util.Browser;
-import util.Geradores;
 import util.JsonManipulation;
 
 import java.util.HashMap;
@@ -18,7 +17,6 @@ public class CadastroConfirmacaoInvalidaDeSenha extends Browser {
     RegisterPage registerPage = new RegisterPage();
     LoginPage loginPage = new LoginPage();
 
-    Geradores geradores = new Geradores();
     @Test
     public void cadastroConfirmacaoInvalidaDeSenha(){
 

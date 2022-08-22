@@ -1,61 +1,87 @@
 package steps.Candidatos;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 import pages.CandidatosPages.*;
 import pages.DashboardPage;
-import pages.UsuarioPages.LoginPage;
-import steps.Cadastro.CadastroValidoSteps;
 import util.BaseTest;
 import util.Browser;
 import util.JsonManipulation;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import static steps.Cadastro.CadastroValidoSteps.cadastrar;
 import static steps.Candidatos.AdicionarCandidatoValidoSteps.adicionarCandidatoValido;
-import static steps.Candidatos.AdicionarCandidatoValidoSteps.logar;
+import static steps.Login.LogInValidoSteps.logar;
 import static util.Paths.curriculoValidoPath;
+
 
 public class EditarCandidatoValidoSteps extends Browser {
 
-    static LoginPage loginPage = new LoginPage();
     DashboardPage dashboardPage = new DashboardPage();
-    CadastroValidoSteps cadastroValidoSteps = new CadastroValidoSteps();
-    CandidatoPopUp candidatoPopUp = new CandidatoPopUp();
     CandidatosPage candidatosPage = new CandidatosPage();
     RegistroDadosPessoaisCandidatoPage registroDadosPessoaisCandidatoPage = new RegistroDadosPessoaisCandidatoPage();
     RegistroEnderecoCandidatoPage registroEnderecoCandidatoPage = new RegistroEnderecoCandidatoPage();
     RegistroEscolaridadeCandidatoPage registroEscolaridadeCandidatoPage = new RegistroEscolaridadeCandidatoPage();
     RegistroExperienciasCandidatoPage registroExperienciasCandidatoPage = new RegistroExperienciasCandidatoPage();
+    DetalhePage detalhePage = new DetalhePage();
     @Test
-    public void adicionarCandidatoValidoSteps() {
+    public void editarCandidatoValidoSteps() {
 
         cadastrarELogar();
 
-        String nomeCandidatoCriado = adicionarCandidatoValido();
+        JSONObject candidatoCriado = adicionarCandidatoValido();
+        Integer posicaoCandidatoNaPagina = candidatosPage.buscarCandidatoPorNome(candidatoCriado.get("nome").toString());
 
+        /**
+         * Realizando a edição
+         */
+
+        JSONObject candidatoEditado = editarDadosPessoaisValido(posicaoCandidatoNaPagina);
+        String nomeCandidatoEditado = candidatoEditado.get("nome").toString();
 
         /****
-         *  Para validar que um candidato foi de fato vinculado, verifico se no botao
-         *  do mesmo está aparecendo a mensagem "Desvincular", o que siginifica que ele
-         *  já está vinculado aquela vaga.
+         *  Para validar que um candidato f*(*(*(*(***(
          */
         BaseTest.waitSeconds(5);
 
+        // Recuperando o cep do candidato editado
+        Integer posicaoCandidatoEditadoNaPagina = candidatosPage.buscarCandidatoPorNome(nomeCandidatoEditado);
+        candidatosPage.abrirTelaDeDetalhes(posicaoCandidatoEditadoNaPagina);
 
-        Assert.assertTrue(candidatosPage.buscarCandidatoPorNome(nomeCandidatoCriado));
+
+        String contatoCandidatoEditado = detalhePage.recuperarContato().replace("(", "").replace(")", "");
+
+        String telefone = candidatoCriado.get("telefone").toString();
+
+        Assert.assertTrue(contatoCandidatoEditado.contains(telefone));
+        Assert.assertNotEquals(candidatoCriado.get("nome"), nomeCandidatoEditado);
 
 
     }
 
+    private JSONObject editarDadosPessoaisValido(Integer posicao) {
+        candidatosPage.clicarBtnEditar(posicao);
+
+        JSONObject candidatoCriado = JsonManipulation.criarJsonCandidato();
+        ArrayList<String> dadosPessoais = registroDadosPessoaisCandidatoPage.recuperarAtributosPrimeiraPaginaParaEdicao(candidatoCriado);
+        registroDadosPessoaisCandidatoPage.popularCamposEscritosEdicaoNome(dadosPessoais);
+
+        registroDadosPessoaisCandidatoPage.clicarBotaoProximoPosEdicao();
+        registroEnderecoCandidatoPage.clicarBotaoProximoPosEdicao();
+        registroEscolaridadeCandidatoPage.clicarBotaoProximoPosEdicao();
+        registroExperienciasCandidatoPage.clicarBotaoProximoPosEdicao();
+
+        return candidatoCriado;
+    }
 
     private void cadastrarELogar() {
-        cadastroValidoSteps.cadastrar();
+        cadastrar();
         logar();
     }
-
-
 
 }
 
