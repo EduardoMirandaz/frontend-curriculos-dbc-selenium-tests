@@ -2,8 +2,8 @@ package steps.Cadastro;
 
 import org.junit.Assert;
 import org.junit.Test;
-import pages.LoginPage;
-import pages.RegisterPage;
+import pages.UsuarioPages.LoginPage;
+import pages.UsuarioPages.RegisterPage;
 import util.Browser;
 import util.Enums.TipoDeInvalidacao;
 import util.Geradores;
@@ -28,7 +28,7 @@ public class CadastroSenhaEmBranco extends Browser {
         // Validação
 
         String expected = registerPage.recuperarMensagemSenhaInvalida();
-        Assert.assertEquals(expected, "OBRIGATÓRIO");
+        Assert.assertEquals(expected, "- OBRIGATÓRIO");
     }
 
     public void cadastrarSenhaEmBranco(){
@@ -45,7 +45,7 @@ public class CadastroSenhaEmBranco extends Browser {
 
         Map<String, String> login = new HashMap<>();
         login.put("email", email);
-        login.put("password", password);
+        login.put("senha", password);
         JsonManipulation.criarJsonCadastro(login);
 
     }

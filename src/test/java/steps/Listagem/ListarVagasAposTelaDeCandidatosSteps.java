@@ -1,4 +1,4 @@
-package steps.Login;
+package steps.Listagem;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -8,23 +8,29 @@ import steps.Cadastro.CadastroValidoSteps;
 import util.Browser;
 import util.JsonManipulation;
 
-public class LogInValidoSteps extends Browser {
+public class ListarVagasAposTelaDeCandidatosSteps extends Browser {
 
     static LoginPage loginPage = new LoginPage();
     DashboardPage dashboardPage = new DashboardPage();
-
     CadastroValidoSteps cadastroValidoSteps = new CadastroValidoSteps();
     @Test
-    public void logarUsuarioValido(){
-        cadastroValidoSteps.cadastrar();
+    public void listarVagasAposTelaDeCandidatosSteps(){
 
-        logar();
+        cadastrarELogar();
+
+        dashboardPage.clicarBtnCandidatos();
+        dashboardPage.clicarBtnDashboard();
+
 
         // Validação
-
         Assert.assertEquals(dashboardPage.recuperarMensagemListaDeVagas(), "Lista de vagas");
 
 
+    }
+
+    private void cadastrarELogar() {
+        cadastroValidoSteps.cadastrar();
+        logar();
     }
 
     public static void logar() {
@@ -35,3 +41,5 @@ public class LogInValidoSteps extends Browser {
 
 
 }
+
+

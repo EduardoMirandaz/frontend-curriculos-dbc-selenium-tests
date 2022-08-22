@@ -2,7 +2,7 @@ package steps.Login;
 
 import org.junit.Assert;
 import org.junit.Test;
-import pages.LoginPage;
+import pages.UsuarioPages.LoginPage;
 import steps.Cadastro.CadastroValidoSteps;
 import util.Browser;
 import util.Enums.TipoDeInvalidacao;
@@ -24,14 +24,14 @@ public class LogInEmailEmBrancoSteps extends Browser {
 
         // Validação
 
-        Assert.assertEquals(loginPage.recuperarMsgErroEmail(), "OBRIGATÓRIO");
+        Assert.assertEquals(loginPage.recuperarMsgErroEmail(), "- OBRIGATÓRIO");
 
 
     }
 
     public static void logar() {
         loginPage.preencherEmail(geradores.gerarLoginRandomico(TipoDeInvalidacao.EMBRANCO));
-        loginPage.preencherPassword(JsonManipulation.recuperarCadastro().get("password"));
+        loginPage.preencherPassword(JsonManipulation.recuperarCadastro().get("senha"));
 
         loginPage.clicarBtnLogin();
     }

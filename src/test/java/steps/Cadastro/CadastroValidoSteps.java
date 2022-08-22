@@ -2,21 +2,13 @@ package steps.Cadastro;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.json.Json;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import pages.HomePage;
-import pages.LoginPage;
-import pages.RegisterPage;
-import pages.Toasts;
-import steps.Login.LogInValidoSteps;
+import pages.DashboardPage;
+import pages.UsuarioPages.LoginPage;
+import pages.UsuarioPages.RegisterPage;
 import util.Browser;
 import util.Geradores;
 import util.JsonManipulation;
 
-import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,11 +17,12 @@ import static util.Elements.waitElement;
 
 public class CadastroValidoSteps extends Browser {
 
-    RegisterPage registerPage = new RegisterPage();
-    LoginPage loginPage = new LoginPage();
-    Geradores geradores = new Geradores();
+    static RegisterPage registerPage = new RegisterPage();
+    static LoginPage loginPage = new LoginPage();
+    DashboardPage dashboardPage = new DashboardPage();
+    static Geradores geradores = new Geradores();
     @Test
-    public void cadastrarUsuarioValido(){
+    public void cadastrarUsuarioValidoELogarValido(){
 
         cadastrar();
 
@@ -42,12 +35,12 @@ public class CadastroValidoSteps extends Browser {
 
         logar();
 
-        Assert.assertEquals(loginPage.recuperarToastRegistro(), "deslogar");
+        Assert.assertEquals(dashboardPage.recuperarMensagemListaDeVagas(), "Lista de vagas");
 
     }
 
 
-    public void cadastrar(){
+    public static void cadastrar(){
         // Clicar no botao para registrar
         loginPage.clicarBtnRegistrar();
 
@@ -61,7 +54,7 @@ public class CadastroValidoSteps extends Browser {
 
         Map<String, String> login = new HashMap<>();
         login.put("email", email);
-        login.put("password", password);
+        login.put("senha", password);
         JsonManipulation.criarJsonCadastro(login);
 
 //         Clicar no botao submit

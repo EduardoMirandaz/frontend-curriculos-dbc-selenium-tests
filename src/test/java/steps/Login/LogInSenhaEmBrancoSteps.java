@@ -2,7 +2,7 @@ package steps.Login;
 
 import org.junit.Assert;
 import org.junit.Test;
-import pages.LoginPage;
+import pages.UsuarioPages.LoginPage;
 import steps.Cadastro.CadastroValidoSteps;
 import util.Browser;
 import util.Enums.TipoDeInvalidacao;
@@ -24,7 +24,7 @@ public class LogInSenhaEmBrancoSteps extends Browser {
 
         // Validação
 
-        Assert.assertEquals(loginPage.recuperarMsgErroSenha(), "OBRIGATÓRIO");
+        Assert.assertEquals(loginPage.recuperarMsgErroSenha(), "- OBRIGATÓRIO");
 
 
     }

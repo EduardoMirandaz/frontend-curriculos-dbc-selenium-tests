@@ -2,7 +2,7 @@ package steps.Login;
 
 import org.junit.Assert;
 import org.junit.Test;
-import pages.LoginPage;
+import pages.UsuarioPages.LoginPage;
 import steps.Cadastro.CadastroValidoSteps;
 import util.Browser;
 import util.JsonManipulation;
@@ -27,7 +27,7 @@ public class LogInSenhaIncorretaSteps extends Browser {
 
     public static void logar() {
         loginPage.preencherEmail(JsonManipulation.recuperarCadastro().get("email"));
-        loginPage.preencherPassword(JsonManipulation.recuperarCadastro().get("password")+"@");
+        loginPage.preencherPassword(JsonManipulation.recuperarCadastro().get("senha")+"@");
         loginPage.clicarBtnLogin();
     }
 

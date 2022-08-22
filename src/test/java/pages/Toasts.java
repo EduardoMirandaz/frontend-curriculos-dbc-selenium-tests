@@ -14,12 +14,13 @@ public class Toasts extends BaseTest {
 
     private static final By toastRegistradoComSucesso =
             By.cssSelector("#\\32 a23s1g > div.Toastify__toast-body > div:nth-child(2)");
-    private final By fieldEmail = By.cssSelector("#email");
-    private final By fieldSenha = By.cssSelector("#senha");
-    private final By fieldConfirmarSenha = By.cssSelector("#confirmaSenha");
-
+    private final By toastCandidatoVinculadoComSucesso = By.cssSelector("#bsbk0sh");
     public String retornoRegistrar(){
         return BaseTest.getText(toastRegistradoComSucesso);
+    }
+
+    public String recuperarMensagemCandidatoVinculadoComSucesso(){
+        return BaseTest.getMsgFromToast(toastCandidatoVinculadoComSucesso);
     }
 
 }
