@@ -8,6 +8,8 @@ import steps.Cadastro.CadastroValidoSteps;
 import util.Browser;
 import util.JsonManipulation;
 
+import static util.BaseTest.waitSeconds;
+
 public class LogInValidoSteps extends Browser {
 
     static LoginPage loginPage = new LoginPage();
@@ -30,6 +32,7 @@ public class LogInValidoSteps extends Browser {
     public static void logar() {
         loginPage.preencherEmail(JsonManipulation.recuperarCadastro().get("email"));
         loginPage.preencherPassword(JsonManipulation.recuperarCadastro().get("senha"));
+        waitSeconds(3);
         loginPage.clicarBtnLogin();
     }
 

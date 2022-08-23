@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static steps.Login.LogInValidoSteps.logar;
+import static util.BaseTest.waitSeconds;
 import static util.Elements.waitElement;
 
 public class CadastroValidoSteps extends Browser {
@@ -59,6 +60,7 @@ public class CadastroValidoSteps extends Browser {
         login.put("senha", password);
         JsonManipulation.criarJsonCadastro(login);
 
+        waitSeconds(2);
 //         Clicar no botao submit
         registerPage.clicarBtnRegistrarSe();
 

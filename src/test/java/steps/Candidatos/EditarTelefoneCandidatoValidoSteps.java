@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import static steps.Cadastro.CadastroValidoSteps.cadastrar;
 import static steps.Candidatos.AdicionarCandidatoValidoSteps.adicionarCandidatoValido;
 import static steps.Login.LogInValidoSteps.logar;
+import static util.BaseTest.waitSeconds;
 
 
 public class EditarTelefoneCandidatoValidoSteps extends Browser {
@@ -29,7 +30,7 @@ public class EditarTelefoneCandidatoValidoSteps extends Browser {
     public void editarTelefoneCandidatoValidoSteps() {
 
         cadastrarELogar();
-
+        waitSeconds(4);
         JSONObject candidatoCriado = adicionarCandidatoValido();
         String nomeCandidatoCriado = candidatoCriado.get("nome").toString();
         Integer posicaoCandidatoNaPagina = candidatosPage.buscarCandidatoPorNome(nomeCandidatoCriado);
@@ -44,14 +45,14 @@ public class EditarTelefoneCandidatoValidoSteps extends Browser {
          *  Para validar que um candidato deve de fato seu telefone editado,
          *  busco pelo nome e verifico se o telefone foi alterado;
          */
-        BaseTest.waitSeconds(5);
+        waitSeconds(5);
 
         Integer posicaoCandidatoEditadoNaPagina = candidatosPage.buscarCandidatoPorNome(nomeCandidatoCriado);
         candidatosPage.abrirTelaDeDetalhes(posicaoCandidatoEditadoNaPagina);
-        BaseTest.waitSeconds(2);
+        waitSeconds(2);
 
         /**
-         * Verifico que o número foi de fato alterado e depois verifico se o nome permaneceu o mesmo.
+         * Verifico que o telefone foi de fato alterado e então verifico se o nome permaneceu o mesmo.
          */
         String contatoCandidatoEditado = detalhePage.recuperarContato().replace("(", "").replace(")", "");
         String contatoCandidatoCriado = candidatoCriado.get("telefone").toString();

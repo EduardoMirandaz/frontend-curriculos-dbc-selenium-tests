@@ -75,6 +75,7 @@ public class VincularCandidatoValidoSteps extends Browser {
 
     private void cadastrarELogar() {
         cadastrar();
+        waitSeconds(4);
         logar();
     }
 

@@ -33,11 +33,11 @@ public class DesvincularCandidatoValidoSteps extends Browser {
          * Adiciono um candidato valido para pelo menos ter um a realizar as operacoes de vaga.
          */
         JSONObject candidatoValidoAdicionado = adicionarCandidatoValido();
-        waitSeconds(5);
+        waitSeconds(6);
         dashboardPage.clicarBtnDashboard();
 
         Integer indexPessoaVinculada = vincularCandidatoValido();
-        waitSeconds(2);
+        waitSeconds(7);
         /**
          * Verifico se consegui vincular, para depois poder desvincular;
          */

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import static steps.Cadastro.CadastroValidoSteps.cadastrar;
 import static steps.Candidatos.DeletarCandidatoValidoSteps.deletarCandidatoValido;
 import static steps.Login.LogInValidoSteps.logar;
+import static util.BaseTest.waitSeconds;
 import static util.Paths.curriculoValidoPath;
 
 public class AdicionarCandidatoValidoSteps extends Browser {
@@ -39,7 +40,7 @@ public class AdicionarCandidatoValidoSteps extends Browser {
          *  Para validar que um candidato foi de fato vinculado, busco ele na base
          *  de candidatos e verifico os datalhes do mesmo.
          */
-        BaseTest.waitSeconds(5);
+        waitSeconds(5);
         // Recuperando posicao candidato na pagina.
         Integer posicaoCandidatoNaPagina = candidatosPage.buscarCandidatoPorNome(nomeCandidatoCriado);
 
@@ -53,6 +54,7 @@ public class AdicionarCandidatoValidoSteps extends Browser {
          */
         dashboardPage.clicarBtnCandidatos();
         candidatosPage.buscarCandidatoPorNome(nomeCandidatoCriado);
+        waitSeconds(4);
         deletarCandidatoValido(posicaoCandidatoNaPagina);
 
     }
@@ -66,19 +68,23 @@ public class AdicionarCandidatoValidoSteps extends Browser {
         registroDadosPessoaisCandidatoPage.popularCamposEscritos(dadosPessoais);
         registroDadosPessoaisCandidatoPage.adicionarArquivo(curriculoValidoPath);
         registroDadosPessoaisCandidatoPage.clicarBotaoProximo();
+        waitSeconds(4);
 
         ArrayList<String> endereco = registroEnderecoCandidatoPage.recuperarAtributosEndereco(candidatoCriado);
         registroEnderecoCandidatoPage.popularCamposEscritos(endereco);
         registroEnderecoCandidatoPage.clicarBotaoProximo();
+        waitSeconds(4);
 
         ArrayList<String> escolaridades = registroEscolaridadeCandidatoPage.recuperarAtributosEscolaridade(candidatoCriado);
         registroEscolaridadeCandidatoPage.preencherNivel();
         registroEscolaridadeCandidatoPage.popularCamposEscritos(escolaridades);
         registroEscolaridadeCandidatoPage.clicarBotaoProximo();
+        waitSeconds(4);
 
         ArrayList<String> experiencias = registroExperienciasCandidatoPage.recuperarAtributosExperiencias(candidatoCriado);
         registroExperienciasCandidatoPage.popularCamposEscritos(experiencias);
         registroExperienciasCandidatoPage.clicarBotaoProximo();
+        waitSeconds(4);
 
 
         return candidatoCriado;
@@ -86,7 +92,7 @@ public class AdicionarCandidatoValidoSteps extends Browser {
 
     public static boolean verificarDetalhesCandidato(JSONObject candidato, Integer posicaoCandidatoNaTela){
         candidatosPage.abrirTelaDeDetalhes(posicaoCandidatoNaTela);
-        BaseTest.waitSeconds(5);
+        waitSeconds(5);
 
         String nomeNaPagina = detalhePage.recuperarNome().replace("...", "").toLowerCase();
         String nomeEnviado = candidato.get("nome").toString().toLowerCase();
@@ -160,7 +166,9 @@ public class AdicionarCandidatoValidoSteps extends Browser {
 
     private void cadastrarELogar() {
         cadastrar();
+        waitSeconds(4);
         logar();
+        waitSeconds(4);
     }
 
 
