@@ -38,7 +38,6 @@ public class EditarNomeCandidatoValidoSteps extends Browser {
         /**
          * Realizando a edição
          */
-
         JSONObject candidatoEditado = editarDadosPessoaisValido(posicaoCandidatoNaPagina);
         String nomeCandidatoEditado = candidatoEditado.get("nome").toString();
 
@@ -48,8 +47,8 @@ public class EditarNomeCandidatoValidoSteps extends Browser {
          */
         waitSeconds(5);
 
-        // Recuperando o cep do candidato editado
         Integer posicaoCandidatoEditadoNaPagina = candidatosPage.buscarCandidatoPorNome(nomeCandidatoEditado);
+
         candidatosPage.abrirTelaDeDetalhes(posicaoCandidatoEditadoNaPagina);
 
         waitSeconds(2);

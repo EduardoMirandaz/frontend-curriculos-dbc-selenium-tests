@@ -10,9 +10,6 @@ public class CandidatosPage {
     public static final String inicioMapeamentoDelecaoCandidato = "#root > div:nth-child(1) > div.sc-eCYdqJ.dcdMBJ > div.sc-gKXOVf.gEdGKo > ul > li:nth-child(";
     public static final String finalMapeamentoDelecaoCandidato = ") > div > button:nth-child(2)";
 
-    // #root > div:nth-child(1) > div.sc-eCYdqJ.dcdMBJ > div.sc-gKXOVf.gEdGKo > ul > li:nth-child(2) > p:nth-child(1)
-    // #root > div:nth-child(1) > div.sc-eCYdqJ.dcdMBJ > div.sc-gKXOVf.gEdGKo > ul > li:nth-child(2) > div > button:nth-child(2)
-    // #root > div:nth-child(1) > div.sc-eCYdqJ.dcdMBJ > div.sc-gKXOVf.gEdGKo > ul > li:nth-child(2) > p:nth-child(1)
     public static final String inicioMapeamentoEdicaoCandidato = "#root > div:nth-child(1) > div.sc-eCYdqJ.dcdMBJ > div.sc-gKXOVf.gEdGKo > ul > li:nth-child(";
     public static final String finalMapeamentoEdicaoCandidato = ") > div > button:nth-child(1)";
 

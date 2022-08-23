@@ -13,16 +13,17 @@ import static steps.Cadastro.CadastroValidoSteps.cadastrar;
 import static steps.Candidatos.AdicionarCandidatoValidoSteps.adicionarCandidatoValido;
 import static steps.Candidatos.AdicionarCandidatoValidoSteps.dashboardPage;
 import static steps.Candidatos.DeletarCandidatoValidoSteps.deletarCandidatoValido;
+import static steps.Candidatos.VincularCandidatoValidoSteps.vincularCandidatoValido;
 import static steps.Login.LogInValidoSteps.logar;
 import static util.BaseTest.waitSeconds;
 
-public class VincularCandidatoValidoSteps extends Browser {
-    static DashboardPage dashboardPage = new DashboardPage();
-    static CandidatoPopUp candidatoPopUp = new CandidatoPopUp();
+public class DesvincularCandidatoValidoSteps extends Browser {
+    CandidatoPopUp candidatoPopUp = new CandidatoPopUp();
+
     CandidatosPage candidatosPage = new CandidatosPage();
 
     @Test
-    public void vincularCandidatoValidoSteps() {
+    public void desvincularCandidatoValidoSteps() {
         /**
          * Antes de tudo, cadastro, faço login e vinculo uma pessoa à uma vaga
          */
@@ -36,22 +37,34 @@ public class VincularCandidatoValidoSteps extends Browser {
         dashboardPage.clicarBtnDashboard();
 
         Integer indexPessoaVinculada = vincularCandidatoValido();
+        waitSeconds(2);
+        /**
+         * Verifico se consegui vincular, para depois poder desvincular;
+         */
+        String mensagemBotaoVinculado1 =
+                BaseTest.retornarMensagemBotaoDoCandidatoDeAcordoComOIndex(indexPessoaVinculada);
+        Assert.assertEquals(mensagemBotaoVinculado1, "Desvincular");
+
+        /**
+         * Desvinculo o candidato.
+         */
+        desvincularCandidatoValido(indexPessoaVinculada);
 
         /****
-         *  Para validar que um candidato foi de fato vinculado, verifico se no botao
-         *  do mesmo está aparecendo a mensagem "Desvincular", o que siginifica que ele
-         *  já está vinculado aquela vaga.
+         *  Para validar que um candidato foi de fato desvinculado, verifico se no botao
+         *  do mesmo está aparecendo a mensagem "Vincular", o que siginifica que ele
+         *  foi desvinculado daquela vaga. Isso porque, nos passos acima, validei que ele
+         *  estava vinculado a vaga daquele index.
          */
         waitSeconds(5);
 
-        String mensagemBotaoVinculado =
+        String mensagemBotaoVinculado2 =
                 BaseTest.retornarMensagemBotaoDoCandidatoDeAcordoComOIndex(indexPessoaVinculada);
 
         /**
-         * Verifico que a mensagem do botao virou desvincular, ou seja, o candidato foi vinculado;
+         * Verifico que a mensagem do botao virou vincular, ou seja, o candidato foi desvinculado;
          */
-        Assert.assertEquals(mensagemBotaoVinculado, "Desvincular");
-
+        Assert.assertEquals(mensagemBotaoVinculado2, "Vincular");
 
         /**
          * Deletando candidato após criação válida.
@@ -62,15 +75,10 @@ public class VincularCandidatoValidoSteps extends Browser {
         int posicao = candidatosPage.buscarCandidatoPorNome(candidatoValidoAdicionado.get("nome").toString());
         deletarCandidatoValido(posicao);
 
-
     }
 
-    public static Integer vincularCandidatoValido() {
-        dashboardPage.clicarBtnDashboard();
-        waitSeconds(2);
-        dashboardPage.clicarBtnVincularCandidato();
-        return candidatoPopUp.clicarBtnVincular();
-
+    private void desvincularCandidatoValido(Integer posicaoCandidatoVinculado) {
+        candidatoPopUp.clicarBtnDesvincular(posicaoCandidatoVinculado);
     }
 
     private void cadastrarELogar() {

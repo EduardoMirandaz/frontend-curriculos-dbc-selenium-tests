@@ -11,7 +11,7 @@ public class DashboardPage {
 
     public final By btnDashboard = By.cssSelector("#root > div:nth-child(1) > div.sc-dkzDqf.MVQyv > header > div > nav > ul > a:nth-child(1)");
 
-    public final By btnVincularCandidato = By.cssSelector("#root > div:nth-child(1) > div:nth-child(2) > div > div.sc-gicCDI.iIrtlB > div:nth-child(1) > div > button");
+    public final By btnVincularCandidato = By.cssSelector("#root > div:nth-child(1) > div:nth-child(2) > div > div.sc-ezWOiH.bQoTBw > div:nth-child(1) > div > button");
 
 
 

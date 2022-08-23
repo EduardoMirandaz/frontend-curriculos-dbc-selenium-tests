@@ -20,17 +20,6 @@ public class BaseTest extends Elements{
         element(by).click();
     }
 
-    public static void clickVincularDesvincular(By vincular, By desvincular, String div){
-
-        if(element(By.cssSelector(div)).getText().equals("Vincular")){
-            click(vincular);
-        }
-        else{
-            click(desvincular);
-        }
-
-    }
-
     public static By buscarBotaoVincular(String strBtnVincularDesvincularInicio, String strBtnVincularDesvincularFinal, Integer pos) {
         if(element(By.cssSelector(strBtnVincularDesvincularInicio + pos + strBtnVincularDesvincularFinal)).getText().equals("Vincular")){
             return By.cssSelector(strBtnVincularDesvincularInicio + pos + strBtnVincularDesvincularFinal);

@@ -31,14 +31,14 @@ public class EditarTelefoneCandidatoValidoSteps extends Browser {
         cadastrarELogar();
 
         JSONObject candidatoCriado = adicionarCandidatoValido();
-        Integer posicaoCandidatoNaPagina = candidatosPage.buscarCandidatoPorNome(candidatoCriado.get("nome").toString());
+        String nomeCandidatoCriado = candidatoCriado.get("nome").toString();
+        Integer posicaoCandidatoNaPagina = candidatosPage.buscarCandidatoPorNome(nomeCandidatoCriado);
 
         /**
          * Realizando a edição
          */
 
-        JSONObject candidatoEditado = editarDadosPessoaisValido(posicaoCandidatoNaPagina);
-        String nomeCandidatoEditado = candidatoEditado.get("nome").toString();
+        editarDadosPessoaisValido(posicaoCandidatoNaPagina);
 
         /****
          *  Para validar que um candidato deve de fato seu telefone editado,
@@ -46,17 +46,18 @@ public class EditarTelefoneCandidatoValidoSteps extends Browser {
          */
         BaseTest.waitSeconds(5);
 
-        // Recuperando o cep do candidato editado
-        Integer posicaoCandidatoEditadoNaPagina = candidatosPage.buscarCandidatoPorNome(nomeCandidatoEditado);
+        Integer posicaoCandidatoEditadoNaPagina = candidatosPage.buscarCandidatoPorNome(nomeCandidatoCriado);
         candidatosPage.abrirTelaDeDetalhes(posicaoCandidatoEditadoNaPagina);
+        BaseTest.waitSeconds(2);
 
-
+        /**
+         * Verifico que o número foi de fato alterado e depois verifico se o nome permaneceu o mesmo.
+         */
         String contatoCandidatoEditado = detalhePage.recuperarContato().replace("(", "").replace(")", "");
+        String contatoCandidatoCriado = candidatoCriado.get("telefone").toString();
 
-        String telefone = candidatoCriado.get("telefone").toString();
-
-        Assert.assertNotEquals(telefone, contatoCandidatoEditado);
-        Assert.assertEquals(candidatoCriado.get("nome"), nomeCandidatoEditado);
+        Assert.assertNotEquals(contatoCandidatoCriado, contatoCandidatoEditado);
+        Assert.assertTrue(nomeCandidatoCriado.equalsIgnoreCase(detalhePage.recuperarNome()));
 
     }
 

@@ -9,13 +9,13 @@ public class CandidatoPopUp {
     public static final String strBtnVincularDesvincularInicio = "body > div:nth-child(4) > div > div > div:nth-child(";
     public static final String strBtnVincularDesvincularFinal = ") > div";
     public static final Integer pos = 2;
-
+    public static final By btnFechar = By.cssSelector("body > div:nth-child(4) > div > div > div.sc-iIPllB.kHBpUa > button");
 
     public static final By btnVincularDesvincular = By.cssSelector("body > div:nth-child(4) > div > div > div:nth-child(2) > div");
 
 
-    public void clicarBtnDesvincular() {
-        BaseTest.click(BaseTest.buscarBotaoDesvincular(strBtnVincularDesvincularInicio, strBtnVincularDesvincularFinal, 2));
+    public void clicarBtnDesvincular(Integer pos) {
+        BaseTest.click(By.cssSelector(strBtnVincularDesvincularInicio + pos + strBtnVincularDesvincularFinal));
     }
     public void clicarBtnCandidatos() {
         BaseTest.click(btnCandidatos);
@@ -28,5 +28,9 @@ public class CandidatoPopUp {
 
         return indexPessoaQuePodeSerVinculada;
 
+    }
+
+    public void clicarBtnFechar() {
+        BaseTest.click(btnFechar);
     }
 }
