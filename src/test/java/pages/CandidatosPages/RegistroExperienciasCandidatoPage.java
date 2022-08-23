@@ -49,8 +49,11 @@ import static util.Elements.element;
         }
 
         private Object recuperarData(Object dataNascimento) {
-            String[] dataList = dataNascimento.toString().split("-");
-            return dataList[2] + dataList[1] +dataList[0];
+            if(dataNascimento != ""){
+                String[] dataList = dataNascimento.toString().split("-");
+                return dataList[2] + dataList[1] +dataList[0];
+            }
+            return "";
         }
 
     }

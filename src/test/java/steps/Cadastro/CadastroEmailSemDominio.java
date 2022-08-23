@@ -23,6 +23,9 @@ public class CadastroEmailSemDominio extends Browser {
     @Test
     public void cadastroEmailSemDominio(){
 
+        /**
+         * Tentando cadastrar um email sem domínio.
+         */
         cadastrarEmailSemDominio();
 
         // Validação

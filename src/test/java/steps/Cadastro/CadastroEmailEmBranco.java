@@ -18,11 +18,14 @@ public class CadastroEmailEmBranco extends Browser {
 
     RegisterPage registerPage = new RegisterPage();
     LoginPage loginPage = new LoginPage();
-
     Geradores geradores = new Geradores();
+
     @Test
     public void cadastroEmailEmBranco(){
 
+        /**
+         * Tentando cadastrar um usuário com email em branco.
+         */
         cadastrarEmailEmBranco();
 
         // Validação

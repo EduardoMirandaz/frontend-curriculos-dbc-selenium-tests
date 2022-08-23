@@ -22,7 +22,9 @@ public class CadastroEmailSemPonto extends Browser {
     Geradores geradores = new Geradores();
     @Test
     public void cadastroEmailSemPonto(){
-
+        /**
+         * Tentando cadastrar um usuário com email sem ponto.
+         */
         cadastrarEmailSemPonto();
 
         // Validação

@@ -20,6 +20,10 @@ public class CadastroConfirmacaoInvalidaDeSenha extends Browser {
     @Test
     public void cadastroConfirmacaoInvalidaDeSenha(){
 
+        /**
+         * Tentando cadastrar um usuário porém errando a confirmação de senha.
+         */
+
         cadastrarConfirmacaoInvalidaDeSenha();
 
         // Validação
@@ -39,6 +43,8 @@ public class CadastroConfirmacaoInvalidaDeSenha extends Browser {
         String email = registerPage.preencherEmail();
         String password = registerPage.preencherSenha();
         registerPage.preencherConfirmarSenha(registerPage.preencherSenha());
+
+        registerPage.clicarBtnRegistrarSe();
 
         Map<String, String> login = new HashMap<>();
         login.put("email", email);

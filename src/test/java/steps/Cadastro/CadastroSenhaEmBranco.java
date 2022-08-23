@@ -22,7 +22,9 @@ public class CadastroSenhaEmBranco extends Browser {
     Geradores geradores = new Geradores();
     @Test
     public void cadastroSenhaEmBranco(){
-
+        /**
+         * Tentando cadastrar um usuário com email valido mas com senha em branco.
+         */
         cadastrarSenhaEmBranco();
 
         // Validação

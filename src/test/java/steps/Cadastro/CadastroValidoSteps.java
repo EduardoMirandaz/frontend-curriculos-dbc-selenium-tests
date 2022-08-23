@@ -24,15 +24,17 @@ public class CadastroValidoSteps extends Browser {
     @Test
     public void cadastrarUsuarioValidoELogarValido(){
 
+        /**
+         * Realizando um cadastro válido
+         */
         cadastrar();
 
         // Validação
         /*********************************************************
          Para validar se o registro foi efetuado de maneira idonea
-         faço login e verifico se o botao de deslogar está disponível.
+         faço login e verifico se o texto "Lista de vagas" foi encon
+         trado na pagina de dashboard de vagas.
          */
-
-
         logar();
 
         Assert.assertEquals(dashboardPage.recuperarMensagemListaDeVagas(), "Lista de vagas");

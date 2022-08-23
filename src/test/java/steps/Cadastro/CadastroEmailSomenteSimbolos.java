@@ -22,7 +22,9 @@ public class CadastroEmailSomenteSimbolos extends Browser {
     Geradores geradores = new Geradores();
     @Test
     public void cadastroEmailSomenteSimbolos(){
-
+        /**
+         * Tentando cadastrar um usuário com email com somente simbolos.
+         */
         cadastrarEmailSomenteSimbolos();
 
         // Validação

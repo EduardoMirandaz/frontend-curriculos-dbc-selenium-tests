@@ -62,7 +62,7 @@ public class CandidatoFaker {
             dadosPessoais.put("phone", Geradores.gerarNumeroDeTelefone().substring(1,5));
         }
         else if(tipoDeInvalidacao == InvalidacoesCandidato.TELEFONE_EM_BRANCO){
-            dadosPessoais.put("phone", "");
+            dadosPessoais.put("phone", " ");
         }
         else if(tipoDeInvalidacao == InvalidacoesCandidato.TELEFONE_NULO){
             dadosPessoais.put("phone", null);

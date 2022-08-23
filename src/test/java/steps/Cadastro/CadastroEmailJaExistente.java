@@ -1,5 +1,6 @@
 package steps.Cadastro;
 
+import org.junit.Assert;
 import org.junit.Test;
 import pages.UsuarioPages.LoginPage;
 import pages.UsuarioPages.RegisterPage;
@@ -9,6 +10,7 @@ import util.JsonManipulation;
 import java.util.HashMap;
 import java.util.Map;
 
+import static util.BaseTest.waitSeconds;
 import static util.Elements.waitElement;
 
 public class CadastroEmailJaExistente extends Browser {
@@ -19,13 +21,18 @@ public class CadastroEmailJaExistente extends Browser {
     @Test
     public void cadastroEmailJaExistente(){
 
+        /**
+         * Tentando cadastrar um usuário com email que eu já tinha cadastrado.
+         */
         String emailCadastrado = cadastrarEmailValido();
+        waitSeconds(3);
         cadastrarMesmoEmail(emailCadastrado);
 
-        // Validação
 
-//        String expected = registerPage.recuperarMensagemEmailInvalido();
-//        Assert.assertEquals(expected, "OBRIGATÓRIO");
+        // Validação
+        // Valido que permaneci na mesma página, isto é, não consegui cadastrar.
+        String expected = registerPage.retornoRegistrar();
+        Assert.assertEquals(expected, "Registre uma conta");
     }
 
     public String cadastrarEmailValido(){

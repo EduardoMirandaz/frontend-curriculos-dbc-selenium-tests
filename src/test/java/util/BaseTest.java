@@ -102,10 +102,39 @@ public class BaseTest extends Elements{
 
     }
 
-    public static void sendKeysPage1Edicao(By by, ArrayList<String> keys){
+    public static void sendKeysPage1TelefoneEmBranco (By by, ArrayList<String> keys){
+        waitElement(by);
+        element(by).sendKeys(Keys.chord(Keys.SHIFT, Keys.ARROW_UP), keys.get(0));
+        element(by).sendKeys(Keys.TAB, keys.get(1));
+        element(by).sendKeys(Keys.TAB, Keys.TAB, keys.get(2));
+        element(by).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, keys.get(3));
+        element(by).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, keys.get(4));
+        element(by).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER, Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ENTER);
+        waitSeconds(2);
+
+    }
+
+    public static void sendKeysPage1PhoneBlank(By by, ArrayList<String> keys){
+        waitElement(by);
+        element(by).sendKeys(Keys.chord(Keys.SHIFT, Keys.ARROW_UP), keys.get(0));
+        element(by).sendKeys(Keys.TAB, keys.get(1));
+        element(by).sendKeys(Keys.TAB, Keys.TAB, keys.get(2));
+        element(by).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, keys.get(3));
+        element(by).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, keys.get(4));
+        element(by).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER, Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ENTER);
+        waitSeconds(2);
+
+    }
+
+    public static void sendKeysPage1EdicaoNome(By by, ArrayList<String> keys){
         waitElement(by);
         element(by).sendKeys(Keys.chord(Keys.SHIFT, Keys.ARROW_UP), keys.get(0));
         element(by).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER, Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ENTER);
+        waitSeconds(2);
+    }
+    public static void sendKeysPage1EdicaoTelefone(By by, ArrayList<String> keys){
+        waitElement(by);
+        element(by).sendKeys(Keys.TAB, Keys.TAB, Keys.TAB, Keys.chord(Keys.SHIFT, Keys.ARROW_UP), keys.get(0));
         waitSeconds(2);
     }
 

@@ -18,9 +18,9 @@ public class RegisterPage extends BaseTest {
     private final By fieldConfirmarSenha = By.cssSelector("#confirmaSenha");
     public final By msgRegistreUmaConta = By.cssSelector("#root > div:nth-child(1) > div > div.sc-himrzO.cTNomg > div > h2");
 
-    public final By msgEmailInvalido = By.cssSelector("#root > div:nth-child(1) > div > div.sc-jIZahH.gUYqHr > div > form > div:nth-child(1) > span");
-    public final By msgSenhaInvalida = By.cssSelector("#root > div:nth-child(1) > div > div.sc-jIZahH.gUYqHr > div > form > div:nth-child(2) > span");
-    public final By msgConfirmarSenhaInvalida = By.cssSelector("#root > div:nth-child(1) > div > div.sc-jIZahH.gUYqHr > div > form > div:nth-child(3) > span");
+    public final By msgEmailInvalido = By.cssSelector("#root > div:nth-child(1) > div > div.sc-himrzO.cTNomg > div > form > div:nth-child(1) > span");
+    public final By msgSenhaInvalida = By.cssSelector("#root > div:nth-child(1) > div > div.sc-himrzO.cTNomg > div > form > div:nth-child(2) > span");
+    public final By msgConfirmarSenhaInvalida = By.cssSelector("#root > div:nth-child(1) > div > div.sc-himrzO.cTNomg > div > form > div:nth-child(3) > span");
 
     // CLICKS
     public void clicarBtnRegistrarSe(){
